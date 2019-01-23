@@ -9,7 +9,7 @@
 #include "Arduino.h"
 
 #if defined(ESP8266)
-  #include <ESP8266HTTPClient.h>
+  #include "ESP8266HTTPClient.h"
 #elif defined(ESP32)
   #include <HTTPClient.h>
 #endif
@@ -40,7 +40,9 @@ String _tag;
 class Influxdb
 {
 public:
-Influxdb(const char* host, uint16_t port);
+Influxdb(String host, uint16_t port);
+Influxdb(const char* hostUrl);
+Influxdb(const char* hostUrl, const char *certThumbPrint);
 
 DB_RESPONSE opendb(String db);
 DB_RESPONSE opendb(String db, String user, String password);
@@ -51,9 +53,9 @@ DB_RESPONSE query(String sql);
 DB_RESPONSE response();
 
 private:
-String _port;
-String _host;
+String _url;
 String _db;
+String _certThumbPrint;
 
 DB_RESPONSE _response = DB_ERROR;
 
