@@ -28,13 +28,19 @@ String measurement;
 
 
 void addField(String key, float value);
+void addField(String key, String value);
 void addTag(String key, String value);
 void empty();
+void clearFields();
 String postString();
+int fieldCount();
+int tagCount();
 
 private:
 String _data;
 String _tag;
+int _tagCount;
+int _fieldCount;
 };
 
 class Influxdb
@@ -47,15 +53,17 @@ Influxdb(const char* hostUrl, const char *certThumbPrint);
 DB_RESPONSE opendb(String db);
 DB_RESPONSE opendb(String db, String user, String password);
 DB_RESPONSE write(dbMeasurement data);
-DB_RESPONSE write(String data);
-DB_RESPONSE query(String sql);
+DB_RESPONSE write(String data, String precision = "");
+String query(String sql);
 //uint8_t createDatabase(char *dbname);
 DB_RESPONSE response();
+String lastErrorResponse() { return _lastErrorResponse; }
 
 private:
 String _url;
 String _db;
 String _certThumbPrint;
+String _lastErrorResponse;
 
 DB_RESPONSE _response = DB_ERROR;
 

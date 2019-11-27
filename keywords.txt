@@ -22,3 +22,5 @@ write	 	    KEYWORD2
 query	 	    KEYWORD2
 postString	KEYWORD2
 response    KEYWORD2
+fieldCount    KEYWORD2
+clearFields  KEYWORD2
